@@ -4,7 +4,7 @@ set -e
 TMP=$(mktemp -d)
 trap 'rm -rf "$TMP"' EXIT
 
-URL=$(curl -sL https://api.github.com/repos/nicedoc/mac-boom/releases/latest \
+URL=$(curl -sL https://api.github.com/repos/vladstudio/mac-boom/releases/latest \
   | grep browser_download_url | head -1 | cut -d'"' -f4)
 curl -sL "$URL" -o "$TMP/Boom.zip"
 unzip -q "$TMP/Boom.zip" -d "$TMP"

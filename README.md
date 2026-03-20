@@ -14,7 +14,7 @@ When you close a window, it explodes into tiny particles that drift upward and f
 ## Install
 
 ```bash
-curl -sL https://raw.githubusercontent.com/nicedoc/mac-boom/main/install.sh | bash
+curl -sL https://raw.githubusercontent.com/vladstudio/mac-boom/main/install.sh | bash
 ```
 
 - Verifies macOS 14+ on Apple Silicon
