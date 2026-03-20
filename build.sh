@@ -4,17 +4,16 @@ cd "$(dirname "$0")"
 
 swift build -c release
 
-APP=app/Boom.app
+APP=/tmp/Boom.app
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
-cp .build/release/Boom "$APP/Contents/MacOS/"
 cp app/Boom/Info.plist "$APP/Contents/"
+cp .build/release/Boom "$APP/Contents/MacOS/"
 cp icons/Boom.icns "$APP/Contents/Resources/"
-touch "$APP"
 
-echo "==> Built Boom.app"
-
-killall Boom 2>/dev/null || true
+pkill -x Boom 2>/dev/null || true
 rm -rf /Applications/Boom.app
 mv "$APP" /Applications/
+touch /Applications/Boom.app
 open /Applications/Boom.app
+echo "==> Installed Boom.app"
