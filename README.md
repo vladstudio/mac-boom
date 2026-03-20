@@ -2,9 +2,9 @@
 
 <img src="app-icon.png" width="128" alt="Boom icon">
 
-A macOS menu bar app that adds a particle dissolution effect when any window closes.
-
 When you close a window, it explodes into tiny particles that drift upward and fade away. That's it.
+
+<video src="boom.mp4" width="600" autoplay loop muted></video>
 
 ## Requirements
 
@@ -13,27 +13,15 @@ When you close a window, it explodes into tiny particles that drift upward and f
 
 ## Install
 
-### From release
-
 ```bash
 curl -sL https://raw.githubusercontent.com/nicedoc/mac-boom/main/install.sh | bash
 ```
 
-### From source
-
-```bash
-git clone https://github.com/nicedoc/mac-boom.git
-cd mac-boom
-./build.sh
-```
-
-## How it works
-
-- Polls `CGWindowListCopyWindowInfo` at 30 Hz to track visible windows
-- When a window disappears and is confirmed closed (not minimized/hidden), a `CAEmitterLayer` burst fires at the window's last position
-- Skips overlays, dialogs, sheets, and tab switches
-- Particles are GPU-rendered — zero main-thread rendering cost
-- No permissions required (no Accessibility, no Screen Recording)
+- Verifies macOS 14+ on Apple Silicon
+- Downloads the latest release from GitHub
+- Installs to `/Applications` (replaces existing version)
+- Removes quarantine flag so the unsigned app can run
+- Opens the app
 
 ## License
 
