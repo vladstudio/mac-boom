@@ -14,10 +14,10 @@ https://github.com/user-attachments/assets/be69d906-dc36-4a26-bc13-f402e0d505f1
 ## Install
 
 ```bash
-curl -sL https://raw.githubusercontent.com/vladstudio/mac-boom/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/vladstudio/mac-boom/main/install.sh | bash
 ```
 
-- Verifies macOS 14+ on Apple Silicon
+- Verifies macOS 15+ on Apple Silicon
 - Downloads the latest release from GitHub
 - Installs to `/Applications` (replaces existing version)
 - Removes quarantine flag so the unsigned app can run
