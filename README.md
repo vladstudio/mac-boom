@@ -13,8 +13,8 @@ https://github.com/user-attachments/assets/be69d906-dc36-4a26-bc13-f402e0d505f1
 
 ## Install
 
-```bash
-curl -fsSL https://raw.githubusercontent.com/vladstudio/mac-boom/main/install.sh | bash
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/vladstudio/mac-boom/main/install.sh)"
 ```
 
 - Verifies macOS 15+ on Apple Silicon
