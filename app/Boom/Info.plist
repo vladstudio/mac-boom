@@ -8,6 +8,8 @@
 	<string>studio.vlad.boom</string>
 	<key>CFBundleName</key>
 	<string>Boom</string>
+	<key>CFBundleIconFile</key>
+	<string>Boom</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>

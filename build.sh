@@ -9,6 +9,7 @@ rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 cp .build/release/Boom "$APP/Contents/MacOS/"
 cp app/Boom/Info.plist "$APP/Contents/"
+cp icons/Boom.icns "$APP/Contents/Resources/"
 touch "$APP"
 
 echo "==> Built Boom.app"
