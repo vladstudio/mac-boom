@@ -48,7 +48,17 @@ class WindowTracker {
             let isTabSwitch = appeared.values.contains { new in
                 new.pid == old.pid && overlaps(old.frame, new.frame)
             }
-            if !isTabSwitch {
+
+            // Overlay/dialog/sheet: disappeared window is smaller than a
+            // still-visible window from the same app at an overlapping position
+            let oldArea = old.frame.width * old.frame.height
+            let isOverlay = current.values.contains { existing in
+                existing.pid == old.pid &&
+                overlaps(old.frame, existing.frame) &&
+                oldArea < existing.frame.width * existing.frame.height
+            }
+
+            if !isTabSwitch && !isOverlay {
                 DissolveEffect.show(frame: old.frame)
             }
         }
