@@ -4,7 +4,7 @@
 
 When you close a window, it explodes into tiny particles that drift upward and fade away. That's it.
 
-<video src="boom.mp4" width="600" autoplay loop muted></video>
+https://github.com/user-attachments/assets/be69d906-dc36-4a26-bc13-f402e0d505f1
 
 ## Requirements
 
