@@ -1,8 +1,13 @@
 import Cocoa
 
+private struct WinInfo {
+    let frame: CGRect
+    let pid: pid_t
+}
+
 @MainActor
 class WindowTracker {
-    private var tracked: [CGWindowID: CGRect] = [:]
+    private var tracked: [CGWindowID: WinInfo] = [:]
     private let myPID = ProcessInfo.processInfo.processIdentifier
 
     func start() {
@@ -17,7 +22,7 @@ class WindowTracker {
             [.optionOnScreenOnly, .excludeDesktopElements], kCGNullWindowID
         ) as? [[String: Any]] else { return }
 
-        var current = [CGWindowID: CGRect](minimumCapacity: list.count)
+        var current = [CGWindowID: WinInfo](minimumCapacity: list.count)
         for info in list {
             guard let num = info[kCGWindowNumber as String] as? Int,
                   let pid = info[kCGWindowOwnerPID as String] as? Int,
@@ -30,12 +35,21 @@ class WindowTracker {
                   let h = bounds["Height"] as? Double,
                   w >= 100, h >= 50
             else { continue }
-            current[CGWindowID(num)] = CGRect(x: x, y: y, width: w, height: h)
+            current[CGWindowID(num)] = WinInfo(frame: CGRect(x: x, y: y, width: w, height: h), pid: pid_t(pid))
         }
 
+        // Windows that appeared this cycle (new IDs not in tracked)
+        let appeared = current.filter { tracked[$0.key] == nil }
+
         for wid in tracked.keys where current[wid] == nil {
-            if !windowExists(wid), let frame = tracked[wid] {
-                DissolveEffect.show(frame: frame)
+            guard !windowExists(wid), let old = tracked[wid] else { continue }
+
+            // Tab switch: same app gained a new window at ~same position
+            let isTabSwitch = appeared.values.contains { new in
+                new.pid == old.pid && overlaps(old.frame, new.frame)
+            }
+            if !isTabSwitch {
+                DissolveEffect.show(frame: old.frame)
             }
         }
 
@@ -50,5 +64,14 @@ class WindowTracker {
             return false
         }
         return !descs.isEmpty
+    }
+
+    /// True if the two frames overlap by more than half the smaller area.
+    private func overlaps(_ a: CGRect, _ b: CGRect) -> Bool {
+        let intersection = a.intersection(b)
+        guard !intersection.isNull else { return false }
+        let overlapArea = intersection.width * intersection.height
+        let smallerArea = min(a.width * a.height, b.width * b.height)
+        return overlapArea > smallerArea * 0.5
     }
 }

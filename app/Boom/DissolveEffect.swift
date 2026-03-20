@@ -86,16 +86,30 @@ enum DissolveEffect {
         base.redRange = 0.03
         base.greenRange = 0.03
         base.blueRange = 0.03
-        base.birthRate = totalRate * 0.75
+        base.birthRate = totalRate * 0.70
 
         let accent = makeCell(particleScale: pScale)
         accent.color = NSColor(white: baseW, alpha: 1).cgColor
         accent.redRange = 0.1
         accent.greenRange = 0.08
         accent.blueRange = 0.1
-        accent.birthRate = totalRate * 0.25
+        accent.birthRate = totalRate * 0.24
 
-        emitter.emitterCells = [base, accent]
+        // ~6% colorful particles: random hues, high saturation, matching brightness
+        let colorBrightness: CGFloat = isDark ? 0.38 : 0.93
+        let hues: [CGFloat] = [0.0, 0.15, 0.33, 0.5, 0.66, 0.83]
+        let colorRate = totalRate * 0.06 / Float(hues.count)
+        let colorCells = hues.map { hue -> CAEmitterCell in
+            let cell = makeCell(particleScale: pScale)
+            cell.color = NSColor(hue: hue, saturation: 0.7, brightness: colorBrightness, alpha: 1).cgColor
+            cell.redRange = 0.08
+            cell.greenRange = 0.08
+            cell.blueRange = 0.08
+            cell.birthRate = colorRate
+            return cell
+        }
+
+        emitter.emitterCells = [base, accent] + colorCells
         return emitter
     }
 
