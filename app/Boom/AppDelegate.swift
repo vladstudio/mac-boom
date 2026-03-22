@@ -8,7 +8,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
         if let button = statusItem.button {
-            button.image = NSImage(systemSymbolName: "burst", accessibilityDescription: "Boom")
+            let image = NSImage(contentsOfFile: Bundle.main.path(forResource: "boom-18x2", ofType: "png")!)!
+            image.size = NSSize(width: 18, height: 18)
+            image.isTemplate = true
+            button.image = image
         }
 
         let menu = NSMenu()
