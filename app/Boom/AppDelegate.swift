@@ -1,5 +1,5 @@
 import Cocoa
-import ServiceManagement
+import MacAppKit
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     private var statusItem: NSStatusItem!
@@ -27,14 +27,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @objc private func toggleLogin(_ sender: NSMenuItem) {
-        let enabling = SMAppService.mainApp.status != .enabled
-        try? enabling ? SMAppService.mainApp.register() : SMAppService.mainApp.unregister()
-        sender.state = enabling ? .on : .off
+        LoginItem.toggle()
+        sender.state = LoginItem.isEnabled ? .on : .off
     }
 }
 
 extension AppDelegate: NSMenuDelegate {
     func menuWillOpen(_ menu: NSMenu) {
-        menu.items.first?.state = SMAppService.mainApp.status == .enabled ? .on : .off
+        menu.items.first?.state = LoginItem.isEnabled ? .on : .off
     }
 }

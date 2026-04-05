@@ -1,17 +1,19 @@
 #!/bin/bash
 set -e
 
+APP_NAME="Boom"
+REPO="vladstudio/mac-boom"
+
 TMP=$(mktemp -d)
 trap 'rm -rf "$TMP"' EXIT
 
-URL=$(curl -sL https://api.github.com/repos/vladstudio/mac-boom/releases/latest \
+URL=$(curl -sL "https://api.github.com/repos/$REPO/releases/latest" \
   | grep browser_download_url | head -1 | cut -d'"' -f4)
-curl -sL "$URL" -o "$TMP/Boom.zip"
-unzip -q "$TMP/Boom.zip" -d "$TMP"
+curl -sL "$URL" -o "$TMP/$APP_NAME.zip"
+unzip -q "$TMP/$APP_NAME.zip" -d "$TMP"
 
-pkill -x Boom 2>/dev/null || true
-rm -rf /Applications/Boom.app
-mv "$TMP/Boom.app" /Applications/
-xattr -dr com.apple.quarantine /Applications/Boom.app 2>/dev/null || true
-open /Applications/Boom.app
-echo "==> Installed Boom"
+pkill -x "$APP_NAME" 2>/dev/null || true
+rm -rf "/Applications/$APP_NAME.app"
+mv "$TMP/$APP_NAME.app" /Applications/
+open "/Applications/$APP_NAME.app"
+echo "==> Installed $APP_NAME"
