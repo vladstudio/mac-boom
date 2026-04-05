@@ -3,7 +3,7 @@ import PackageDescription
 
 let package = Package(
     name: "Boom",
-    platforms: [.macOS(.v14)],
+    platforms: [.macOS(.v15)],
     dependencies: [
         .package(path: "../mac-app-kit"),
     ],
