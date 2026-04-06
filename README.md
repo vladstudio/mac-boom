@@ -1,15 +1,10 @@
 # Boom
 
-<img src="app-icon.png" width="128" alt="Boom icon">
+<img src="boom.png" width="128" alt="Boom icon">
 
-When you close a window, it explodes into tiny particles that drift upward and fade away. That's it.
+When you close a window, it explodes into tiny particles that drift upward and fade away.
 
 https://github.com/user-attachments/assets/be69d906-dc36-4a26-bc13-f402e0d505f1
-
-## Requirements
-
-- macOS 15 (Sequoia) or later
-- Xcode Command Line Tools
 
 ## Install
 
@@ -20,7 +15,6 @@ https://github.com/user-attachments/assets/be69d906-dc36-4a26-bc13-f402e0d505f1
 - Verifies macOS 15+ on Apple Silicon
 - Downloads the latest release from GitHub
 - Installs to `/Applications` (replaces existing version)
-- Removes quarantine flag so the unsigned app can run
 - Opens the app
 
 ## License
