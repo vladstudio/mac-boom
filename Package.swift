@@ -10,7 +10,7 @@ let package = Package(
     targets: [
         .executableTarget(
             name: "Boom",
-            dependencies: [.product(name: "MacAppKit", package: "mac-app-kit")],
+            dependencies: [.product(name: "MacAppKit", package: "app-kit")],
             path: "app/Boom",
             exclude: ["Info.plist"]
         )
