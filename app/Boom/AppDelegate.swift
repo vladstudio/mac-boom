@@ -35,7 +35,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @objc private func openAbout() {
-        NSWorkspace.shared.open(URL(string: "https://boom.vlad.studio")!)
+        NSWorkspace.shared.open(URL(string: "https://apps.vlad.studio/boom")!)
     }
 }
 
