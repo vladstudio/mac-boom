@@ -5,7 +5,7 @@ let package = Package(
     name: "Boom",
     platforms: [.macOS(.v15)],
     dependencies: [
-        .package(path: "../mac-app-kit"),
+        .package(path: "../app-kit"),
     ],
     targets: [
         .executableTarget(

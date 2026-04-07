@@ -2,14 +2,12 @@
 set -e
 
 APP_NAME="Boom"
-REPO="vladstudio/mac-boom"
+REPO="vladstudio/boom"
 
 TMP=$(mktemp -d)
 trap 'rm -rf "$TMP"' EXIT
 
-URL=$(curl -sL "https://api.github.com/repos/$REPO/releases/latest" \
-  | grep browser_download_url | head -1 | cut -d'"' -f4)
-curl -sL "$URL" -o "$TMP/$APP_NAME.zip"
+curl -sL "https://github.com/$REPO/releases/latest/download/$APP_NAME.zip" -o "$TMP/$APP_NAME.zip"
 unzip -q "$TMP/$APP_NAME.zip" -d "$TMP"
 
 pkill -x "$APP_NAME" 2>/dev/null || true

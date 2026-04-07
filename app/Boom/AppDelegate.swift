@@ -17,9 +17,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let menu = NSMenu()
         menu.delegate = self
         menu.addItem(NSMenuItem(title: "Start on Login", action: #selector(toggleLogin), keyEquivalent: ""))
+        menu.addItem(NSMenuItem(title: "About Boom", action: #selector(openAbout), keyEquivalent: ""))
         menu.addItem(.separator())
         menu.addItem(NSMenuItem(title: "Quit Boom", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
-        menu.items.first?.target = self
+        for item in menu.items where item.action != #selector(NSApplication.terminate(_:)) {
+            item.target = self
+        }
         statusItem.menu = menu
 
         windowTracker = WindowTracker()
@@ -29,6 +32,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @objc private func toggleLogin(_ sender: NSMenuItem) {
         LoginItem.toggle()
         sender.state = LoginItem.isEnabled ? .on : .off
+    }
+
+    @objc private func openAbout() {
+        NSWorkspace.shared.open(URL(string: "https://boom.vlad.studio")!)
     }
 }
 

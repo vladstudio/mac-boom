@@ -8,14 +8,13 @@ https://github.com/user-attachments/assets/be69d906-dc36-4a26-bc13-f402e0d505f1
 
 ## Install
 
-```sh
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/vladstudio/mac-boom/main/install.sh)"
-```
+[Download Boom.zip](https://github.com/vladstudio/boom/releases/latest/download/Boom.zip), unzip, and move to Applications.
 
-- Verifies macOS 15+ on Apple Silicon
-- Downloads the latest release from GitHub
-- Installs to `/Applications` (replaces existing version)
-- Opens the app
+Or via terminal:
+
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/vladstudio/boom/main/install.sh)"
+```
 
 ## License
 

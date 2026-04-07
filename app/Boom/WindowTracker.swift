@@ -9,10 +9,11 @@ private struct WinInfo {
 class WindowTracker {
     private var tracked: [CGWindowID: WinInfo] = [:]
     private let myPID = ProcessInfo.processInfo.processIdentifier
+    private var timer: Timer?
 
     func start() {
         poll()
-        Timer.scheduledTimer(withTimeInterval: 1.0 / 30.0, repeats: true) { [weak self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0 / 30.0, repeats: true) { [weak self] _ in
             MainActor.assumeIsolated { self?.poll() }
         }
     }
@@ -73,7 +74,7 @@ class WindowTracker {
         ) as? [[String: Any]] else {
             return false
         }
-        return !descs.isEmpty
+        return descs.first?[kCGWindowBounds as String] != nil
     }
 
     /// True if the two frames overlap by more than half the smaller area.

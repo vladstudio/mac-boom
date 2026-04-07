@@ -47,7 +47,8 @@ enum DissolveEffect {
         view.wantsLayer = true
         window.contentView = view
 
-        let emitter = makeEmitter(windowSize: frame.size, viewSize: nsFrame.size)
+        let screenScale = window.screen?.backingScaleFactor ?? 2
+        let emitter = makeEmitter(windowSize: frame.size, viewSize: nsFrame.size, screenScale: screenScale)
         view.layer?.addSublayer(emitter)
 
         active.append(window)
@@ -62,8 +63,7 @@ enum DissolveEffect {
         }
     }
 
-    private static func makeEmitter(windowSize: CGSize, viewSize: CGSize) -> CAEmitterLayer {
-        let screenScale = NSScreen.main?.backingScaleFactor ?? 2
+    private static func makeEmitter(windowSize: CGSize, viewSize: CGSize, screenScale: CGFloat) -> CAEmitterLayer {
 
         let emitter = CAEmitterLayer()
         emitter.frame = CGRect(origin: .zero, size: viewSize)
