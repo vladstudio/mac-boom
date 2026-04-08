@@ -21,10 +21,10 @@ enum DissolveEffect {
     }()
 
     static func show(frame: CGRect) {
-        guard active.count < maxConcurrent else { return }
+        guard active.count < maxConcurrent,
+              let screenH = NSScreen.screens.first?.frame.height else { return }
 
         let padding: CGFloat = 120
-        let screenH = NSScreen.screens[0].frame.height
         let nsFrame = CGRect(
             x: frame.origin.x - padding,
             y: screenH - frame.origin.y - frame.height - padding,
@@ -47,7 +47,8 @@ enum DissolveEffect {
         view.wantsLayer = true
         window.contentView = view
 
-        let screenScale = window.screen?.backingScaleFactor ?? 2
+        let targetScreen = NSScreen.screens.first { $0.frame.intersects(nsFrame) }
+        let screenScale = targetScreen?.backingScaleFactor ?? 2
         let emitter = makeEmitter(windowSize: frame.size, viewSize: nsFrame.size, screenScale: screenScale)
         view.layer?.addSublayer(emitter)
 
